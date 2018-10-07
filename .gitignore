@@ -18,6 +18,7 @@ jspm_packages
 
 # Visual Studio Code
 .vscode
+!.vscode/launch.json
 
 # JS compiled
 dist
