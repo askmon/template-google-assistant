@@ -1,16 +1,11 @@
 import { dialogflow } from 'actions-on-google';
 
-import { ssml } from './ssml';
+import { exampleIntent } from '~/intent';
 
 export function app() {
   const dialog = dialogflow({ debug: false });
 
-  dialog.intent('example-intent', (conv, params, argument, status) => {
-    const resp = ssml`
-      <speak>This is an example.</speak>
-    `;
-    conv.ask(resp);
-  });
+  dialog.intent(exampleIntent.name, exampleIntent.handler);
 
   return dialog;
 }

@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "outDir": "dist",
     "target": "es2018",
     "module": "commonjs",
     "sourceMap": true,
     "emitDecoratorMetadata": false,
     "experimentalDecorators": false,
+    "paths": {
+      "~/*": ["src/*"]
+    }
   }
 }
