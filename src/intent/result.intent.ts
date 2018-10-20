@@ -23,6 +23,22 @@ export const resultIntent: DialogFlowIntent = {
       return `${step.quantity} ${m.title} ${step.connector} ${i.title}`
     });
     conv.data['ingredients'] = ingredients;
+    const parseRecipeStep = () => {
+      const recipe = results.data.content.recipeSteps[0].body;
+      let recipeClean = recipe.replace(/<(?:.|\n)*?>/gm, '');
+      recipeClean = recipeClean.replace(/(?:.|\n)*?/gm, '');
+
+      let receitaParsed = recipeClean.split(".");
+      console.log(receitaParsed);
+      receitaParsed.map(item => {
+        if(item.match(/^[0-9]*$/gm)) {
+
+        }
+      });
+      conv.data['recipes'] = receitaParsed;
+    }
+    parseRecipeStep();
+    conv.data['recipeString'] = results.data.content.recipeSteps[0].body;
     conv.ask(
       ssml`
       <speak>"${results.data.description}"<break time="500ms"/></speak>
@@ -30,7 +46,7 @@ export const resultIntent: DialogFlowIntent = {
     );
     conv.ask(
       ssml`
-      <speak>"Seu filho da puta"<break time="500ms"/></speak>
+      <speak>"Seu bonitão, lindo, maravilhoso!"<break time="500ms"/></speak>
       `,
     );
     // // tslint:disable-next-line:no-string-literal
