@@ -1,1 +1,1 @@
-export * from './example.intent';
+export * from './busca.intent';
