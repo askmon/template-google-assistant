@@ -11,7 +11,7 @@ export const buscaIntent: DialogFlowIntent = {
     const array = results.data.results;
     const itemsArray = array.map((i) => {
       return {
-        title: i.title,
+        title: i.slug,
         image: {
           url: i.imageUrl,
           accessibilityText: i.title,
@@ -23,7 +23,6 @@ export const buscaIntent: DialogFlowIntent = {
     itemsArray.forEach((item) => {
       items[item.name] = item;
     });
-    console.info(items);
     // const item1: CarouselOptionItem = {
     //   title: 'Arroz de leite',
     //   description: 'BLVVLABLA',

@@ -17,6 +17,10 @@
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "lodash.curry": "^4.1.1",
+    "lodash.defaults": "^4.2.0",
+    "lodash.get": "^4.4.2",
+    "lodash.orderby": "^4.6.0",
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
