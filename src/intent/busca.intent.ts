@@ -5,7 +5,7 @@ export const buscaIntent: DialogFlowIntent = {
   name: 'busca',
   handler: async (conv) => {
     const results = await rp({
-      uri: 'https://panelinha-api-server-prod.herokuapp.com/v1/search?pageSize=12&title=' + conv.parameters.busca,
+      uri: 'https://panelinha-api-server-prod.herokuapp.com/v1/search?pageType=receita&pageSize=10&title=' + conv.parameters.busca,
       json: true,
     });
     const array = results.data.results;

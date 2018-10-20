@@ -4,7 +4,7 @@ export const ingredientIntent: DialogFlowIntent = {
   name: 'ingrediente',
   handler: (conv) => {
     // tslint:disable-next-line:no-string-literal
-    conv.data['ingredientIndex'] = 0;
+    conv.data['ingredientIndex'] = conv.data['ingredientIndex'] ? conv.data['ingredientIndex'] : 0;
     // tslint:disable-next-line:no-string-literal
     conv.data['ingredients'] = ['Uma xícara de chá de arroz',
                                 'Duas xícaras de chá de água',
@@ -17,5 +17,6 @@ export const ingredientIntent: DialogFlowIntent = {
       `,
     );
     conv.data['ingredientIndex'] = conv.data['ingredientIndex'] + 1;
+    console.log(conv.data);
   },
 };
