@@ -41,7 +41,7 @@ export const buscaIntent: DialogFlowIntent = {
     //   },
     // };
     // conv.data = { step: 1 };
-    conv.ask(new SimpleResponse('Olha o que achei pra você meu amor:'));
+    conv.ask(new SimpleResponse('Olha o que achei pra você meu lindinho:'));
     conv.ask(new Carousel({
       items,
     }));
