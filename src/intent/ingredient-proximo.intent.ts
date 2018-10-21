@@ -1,7 +1,7 @@
 import { ssml } from '~/ssml';
 
-export const ingredientIntent: DialogFlowIntent = {
-  name: 'ingrediente',
+export const ingredientNextIntent: DialogFlowIntent = {
+  name: 'ingrediente - proximo',
   handler: (conv) => {
     // tslint:disable-next-line:no-string-literal
     conv.data['ingredientIndex'] = conv.data['ingredientIndex'] ? conv.data['ingredientIndex'] : 0;
@@ -10,14 +10,14 @@ export const ingredientIntent: DialogFlowIntent = {
     if (conv.data['ingredientIndex'] < conv.data['ingredients'].length - 1) {
       conv.ask(
         ssml`
-        <speak>${conv.data['ingredients'][conv.data['ingredientIndex']]}<break time="500ms"/></speak>
+        <speak>"${conv.data['ingredients'][conv.data['ingredientIndex']]}"<break time="500ms"/></speak>
         `,
       );
-      conv.data['ingredientIndex'] = conv.data['ingredientIndex'] + 1;
-    } else if (conv.data['ingredientIndex'] === conv.data['ingredients'].length - 1) {
+    } else if (conv.data['ingredientIndex'] == conv.data['ingredients'].length - 1) {
       conv.ask(
         ssml`
-        <speak>E por último ${conv.data['ingredients'][conv.data['ingredientIndex']]}<break time="500ms"/></speak>
+        <speak>E por último ${conv.data['ingredients'][conv.data['ingredientIndex']]}<break time="500ms"/>
+               Gostaria de ouvir novamente as receitas ou gostaria de seguir para os ingredientes?<break time="500ms"/></speak>
         `,
       );
       conv.data['lastIngredient'] = true;
@@ -28,5 +28,8 @@ export const ingredientIntent: DialogFlowIntent = {
         `,
       );
     }
+
+    conv.data['ingredientIndex'] = conv.data['ingredientIndex'] + 1;
+    console.log(conv.data);
   },
 };
