@@ -31,7 +31,7 @@ export const buscaIntent: DialogFlowIntent = {
       if (a === 0) {
         conv.ask(new SimpleResponse({speech: '<speak><audio src="https://instaud.io/_/2PcU.mp3"/></speak>', text:'Então vamos preparar os ingredientes?'}));
       } else {
-        conv.ask(new SimpleResponse({speech: '<speak><audio src="https://instaud.io/_/2Pph.mp3"/></speak>', text:'Esse prato deixa todo mundo feliz, até o cozinheiro'}));
+        conv.ask(new SimpleResponse({speech: '<speak><audio src="https://instaud.io/_/2PsR.mp3"/></speak>', text:'Esse prato deixa todo mundo feliz, até o cozinheiro'}));
       }
       conv.ask(new Carousel({
         items,
