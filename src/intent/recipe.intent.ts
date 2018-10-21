@@ -8,6 +8,9 @@ export const recipeIntent: DialogFlowIntent = {
     conv.data['recipeIndex'] = conv.data['recipeIndex'] ? conv.data['recipeIndex']:0;
     // tslint:disable-next-line:no-string-literal
     if (conv.data['recipeIndex'] < conv.data['recipes'].length - 1) {
+      conv.ask(new SimpleResponse({speech: '<speak>hashtag como faz</speak>', text:'#comofaz'}));
+    }
+    if (conv.data['recipeIndex'] < conv.data['recipes'].length - 1) {
       conv.ask(
         ssml`
         <speak>${conv.data['recipes'][conv.data['recipeIndex']]}<break time="500ms"/></speak>

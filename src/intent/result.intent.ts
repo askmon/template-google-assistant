@@ -61,7 +61,7 @@ export const resultIntent: DialogFlowIntent = {
     conv.data['recipeString'] = results.data.content.recipeSteps[0].body;
     conv.ask(
       ssml`
-      <speak>${results.data.description}<break time="500ms"/></speak>
+      <speak><prosody rate="fast"><emphasis level="strong">${results.data.description}</emphasis></prosody></speak>
       `,
     );
     conv.ask(
