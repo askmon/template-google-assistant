@@ -5,7 +5,6 @@ export const ingredientIntent: DialogFlowIntent = {
   handler: (conv) => {
     // tslint:disable-next-line:no-string-literal
     conv.data['ingredientIndex'] = conv.data['ingredientIndex'] ? conv.data['ingredientIndex'] : 0;
-    conv.data['lastIngredient'] = conv.data['lastIngredient'] ? conv.data['lastIngredient'] : false;
     // tslint:disable-next-line:no-string-literal
     if (conv.data['ingredientIndex'] < conv.data['ingredients'].length - 1) {
       conv.ask(
@@ -20,7 +19,6 @@ export const ingredientIntent: DialogFlowIntent = {
         <speak>E por último ${conv.data['ingredients'][conv.data['ingredientIndex']]}<break time="500ms"/></speak>
         `,
       );
-      conv.data['lastIngredient'] = true;
     } else {
       conv.ask(
         ssml`
@@ -28,5 +26,6 @@ export const ingredientIntent: DialogFlowIntent = {
         `,
       );
     }
+    conv.data['ingredientIndex'] = conv.data['ingredientIndex'] + 1;
   },
 };

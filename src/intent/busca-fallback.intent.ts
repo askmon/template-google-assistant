@@ -5,7 +5,6 @@ import { ssml } from '~/ssml';
 export const buscaFallbackIntent: DialogFlowIntent = {
   name: 'busca fallback',
   handler: async (conv) => {
-    console.log(conv);
     const results = await rp({
       uri: 'https://panelinha-api-server-prod.herokuapp.com/v1/search?pageType=receita&pageSize=10&title=' + conv.query,
       json: true,

@@ -1,6 +1,7 @@
 import { dialogflow } from 'actions-on-google';
 import {
-    buscaFallbackIntent, buscaIntent, ingredientIntent, recipeIntent, resultIntent,
+    buscaFallbackIntent, buscaIntent, ingredientIntent, ingredientPickIntent, recipeIntent,
+    resultIntent,
 } from '~/intent';
 import { ingredientRepeatIntent } from '~/intent/ingredient-repeat.intent';
 import { recipeRepeatIntent } from '~/intent/recipe-repeat.intent';
@@ -14,6 +15,7 @@ export function app() {
   dialog.intent(recipeIntent.name, recipeIntent.handler);
   dialog.intent(resultIntent.name, resultIntent.handler);
   dialog.intent(ingredientRepeatIntent.name, ingredientRepeatIntent.handler);
+  dialog.intent(ingredientPickIntent.name, ingredientPickIntent.handler);
   dialog.intent(recipeRepeatIntent.name, recipeRepeatIntent.handler);
 
   return dialog;

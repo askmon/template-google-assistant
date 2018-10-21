@@ -1,19 +1,18 @@
 import { ssml } from '~/ssml';
 
 export const ingredientRepeatIntent: DialogFlowIntent = {
-  name: 'ingrediente - repeat',
+  name: 'ingrediente - proximo',
   handler: (conv) => {
     // tslint:disable-next-line:no-string-literal
     conv.data['ingredientIndex'] = conv.data['ingredientIndex'] ? conv.data['ingredientIndex'] : 0;
+    conv.data['ingredientIndex'] = conv.data['ingredientIndex'] - 1;
     // tslint:disable-next-line:no-string-literal
-    if (conv.data['ingredientIndex'] < conv.data['ingredients'].length - 1 && !conv.data['lastIngredient']) {
-      conv.data['ingredientIndex'] = conv.data['ingredientIndex'] - 1;
+    if (conv.data['ingredientIndex'] < conv.data['ingredients'].length - 1) {
       conv.ask(
         ssml`
         <speak>${conv.data['ingredients'][conv.data['ingredientIndex']]}<break time="500ms"/></speak>
         `,
       );
-      conv.data['ingredientIndex'] = conv.data['ingredientIndex'] + 1;
     } else if (conv.data['ingredientIndex'] === conv.data['ingredients'].length - 1) {
       conv.ask(
         ssml`
@@ -27,5 +26,6 @@ export const ingredientRepeatIntent: DialogFlowIntent = {
         `,
       );
     }
+    conv.data['ingredientIndex'] = conv.data['ingredientIndex'] + 1;
   },
 };

@@ -5,7 +5,6 @@ export const ingredientNextIntent: DialogFlowIntent = {
   handler: (conv) => {
     // tslint:disable-next-line:no-string-literal
     conv.data['ingredientIndex'] = conv.data['ingredientIndex'] ? conv.data['ingredientIndex'] : 0;
-    conv.data['lastIngredient'] = conv.data['lastIngredient'] ? conv.data['lastIngredient'] : false;
     // tslint:disable-next-line:no-string-literal
     if (conv.data['ingredientIndex'] < conv.data['ingredients'].length - 1) {
       conv.ask(
@@ -20,7 +19,6 @@ export const ingredientNextIntent: DialogFlowIntent = {
                Gostaria de ouvir novamente as receitas ou gostaria de seguir para os ingredientes?<break time="500ms"/></speak>
         `,
       );
-      conv.data['lastIngredient'] = true;
     } else {
       conv.ask(
         ssml`
