@@ -4,12 +4,11 @@ import { ssml } from '~/ssml';
 export const recipeIntent: DialogFlowIntent = {
   name: 'receita',
     handler: (conv) => {
-      conv.ask(new SimpleResponse({speech: '<speak><audio src="https://instaud.io/_/2PpK.mp3"/></speak>', text:'O preparo começa com:'}));
     // tslint:disable-next-line:no-string-literal
     conv.data['recipeIndex'] = conv.data['recipeIndex'] ? conv.data['recipeIndex']:0;
     // tslint:disable-next-line:no-string-literal
-    if (conv.data['recipeIndex'] < conv.data['recipes'].length - 1) {
-      conv.ask(new SimpleResponse({speech: '<speak><audio src="https://instaud.io/_/2PsD.mp3"/></speak>>', text:'#comofaz'}));
+    if (conv.data['recipeIndex'] === 0) {
+      conv.ask(new SimpleResponse({speech: '<speak><audio src="https://instaud.io/_/2PsD.mp3"/></speak>', text:'#comofaz'}));
     }
     if (conv.data['recipeIndex'] < conv.data['recipes'].length - 1) {
       conv.ask(
