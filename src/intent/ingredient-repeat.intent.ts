@@ -1,11 +1,13 @@
 import { ssml } from '~/ssml';
 
 export const ingredientRepeatIntent: DialogFlowIntent = {
-  name: 'ingrediente - proximo',
+  name: 'ingrediente - repeat',
   handler: (conv) => {
     // tslint:disable-next-line:no-string-literal
     conv.data['ingredientIndex'] = conv.data['ingredientIndex'] ? conv.data['ingredientIndex'] : 0;
+    console.log(conv.data['ingredientIndex']);
     conv.data['ingredientIndex'] = conv.data['ingredientIndex'] - 1;
+    console.log(conv.data['ingredientIndex']);
     // tslint:disable-next-line:no-string-literal
     if (conv.data['ingredientIndex'] < conv.data['ingredients'].length - 1) {
       conv.ask(
