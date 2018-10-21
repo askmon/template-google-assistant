@@ -4,6 +4,8 @@ import * as get from 'lodash.get';
 import * as orderBy from 'lodash.orderby';
 import * as rp from 'request-promise';
 import { ssml } from '~/ssml';
+import * as striptags from 'striptags'
+import {AllHtmlEntities}  from 'html-entities'
 
 export const resultIntent: DialogFlowIntent = {
   name: 'resultado',
@@ -24,12 +26,16 @@ export const resultIntent: DialogFlowIntent = {
     });
     conv.data['ingredients'] = ingredients;
     const parseRecipeStep = () => {
+      const entities = new AllHtmlEntities;
       const recipe = results.data.content.recipeSteps[0].body;
-      let recipeClean = recipe.replace(/<(?:.|\n)*?>/gm, '');
-      recipeClean = recipeClean.replace(/(?:.|\n)*?/gm, '');
-
+      console.log(recipe);
+      let recipeClean = entities.decode(recipe);
+      recipeClean = striptags(recipeClean);
+      recipeClean = recipeClean.replace(/\n/g, '');
+      console.log(recipeClean);
       let receitaParsed = recipeClean.split(".");
       console.log(receitaParsed);
+      let finalRecipeArray = [];
       receitaParsed.map(item => {
         if(item.match(/^[0-9]*$/gm)) {
 
