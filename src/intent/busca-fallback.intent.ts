@@ -2,11 +2,12 @@ import { Carousel, CarouselOptionItem, SimpleResponse } from 'actions-on-google'
 import * as rp from 'request-promise';
 import { ssml } from '~/ssml';
 
-export const buscaIntent: DialogFlowIntent = {
-  name: 'busca',
+export const buscaFallbackIntent: DialogFlowIntent = {
+  name: 'busca fallback',
   handler: async (conv) => {
+    console.log(conv);
     const results = await rp({
-      uri: 'https://panelinha-api-server-prod.herokuapp.com/v1/search?pageType=receita&pageSize=10&title=' + conv.parameters.busca,
+      uri: 'https://panelinha-api-server-prod.herokuapp.com/v1/search?pageType=receita&pageSize=10&title=' + conv.query,
       json: true,
     });
     const array = results.data.results;

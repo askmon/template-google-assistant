@@ -21,8 +21,8 @@ export const ingredientRepeatIntent: DialogFlowIntent = {
     } else if (conv.data['ingredientIndex'] == conv.data['ingredients'].length - 1) {
       conv.ask(
         ssml`
-        <speak>"E por último ${conv.data['ingredients'][conv.data['ingredientIndex']]}"<break time="500ms"/>
-               "Gostaria de ouvir novamente as receitas ou gostaria de seguir para os ingredientes?"<break time="500ms"/></speak>
+        <speak>E por último ${conv.data['ingredients'][conv.data['ingredientIndex']]}<break time="500ms"/>
+               Gostaria de ouvir novamente as receitas ou gostaria de seguir para os ingredientes?<break time="500ms"/></speak>
         `,
       );
     } else {

@@ -15,14 +15,14 @@ export const ingredientIntent: DialogFlowIntent = {
     if (conv.data['ingredientIndex'] < conv.data['ingredients'].length - 1) {
       conv.ask(
         ssml`
-        <speak>"${conv.data['ingredients'][conv.data['ingredientIndex']]}"<break time="500ms"/></speak>
+        <speak>${conv.data['ingredients'][conv.data['ingredientIndex']]}<break time="500ms"/></speak>
         `,
       );
       conv.data['ingredientIndex'] = conv.data['ingredientIndex'] + 1;
     } else if (conv.data['ingredientIndex'] === conv.data['ingredients'].length - 1) {
       conv.ask(
         ssml`
-        <speak>"E por último ${conv.data['ingredients'][conv.data['ingredientIndex']]}"<break time="500ms"/></speak>
+        <speak>E por último ${conv.data['ingredients'][conv.data['ingredientIndex']]}<break time="500ms"/></speak>
         `,
       );
     } else {

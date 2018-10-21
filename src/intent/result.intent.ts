@@ -1,11 +1,12 @@
+import { SimpleResponse } from 'actions-on-google';
+import { AllHtmlEntities } from 'html-entities';
 import * as curry from 'lodash.curry';
 import * as defaults from 'lodash.defaults';
 import * as get from 'lodash.get';
 import * as orderBy from 'lodash.orderby';
 import * as rp from 'request-promise';
+import * as striptags from 'striptags';
 import { ssml } from '~/ssml';
-import * as striptags from 'striptags'
-import {AllHtmlEntities}  from 'html-entities'
 
 export const resultIntent: DialogFlowIntent = {
   name: 'resultado',
@@ -21,9 +22,16 @@ export const resultIntent: DialogFlowIntent = {
           title: ''
         }
       }
-      const m = results.data.measures.find(x => x.id === step.measureId)
+      let m = results.data.measures.find(x => x.id === step.measureId);
+      if(!m || !m.title) {
+        m = {
+          title: ''
+        }
+      }
       return `${step.quantity} ${m.title} ${step.connector} ${i.title}`
     });
+    conv.data['ingredientIndex'] = 0;
+    conv.data['recipeIndex'] = 0;
     conv.data['ingredients'] = ingredients;
     const parseRecipeStep = () => {
       const entities = new AllHtmlEntities;
@@ -37,9 +45,10 @@ export const resultIntent: DialogFlowIntent = {
       console.log(receitaParsed);
       let finalRecipeArray = [];
       receitaParsed.map(item => {
-        if(item.match(/^[0-9]*$/gm)) {
-
-        }
+        let phrase = "<s>";
+        phrase = phrase.concat(item);
+        phrase = phrase.concat("</s>");
+        finalRecipeArray.push(phrase);
       });
       conv.data['recipes'] = receitaParsed;
     }
@@ -47,42 +56,16 @@ export const resultIntent: DialogFlowIntent = {
     conv.data['recipeString'] = results.data.content.recipeSteps[0].body;
     conv.ask(
       ssml`
-      <speak>"${results.data.description}"<break time="500ms"/></speak>
+      <speak>${results.data.description}<break time="500ms"/></speak>
       `,
     );
     conv.ask(
       ssml`
-      <speak>"Seu bonitão, lindo, maravilhoso!"<break time="500ms"/></speak>
+      <speak><prosody rate="fast">
+      <emphasis level="strong">Legal! Podemos começar?</emphasis><break time="0.6s"/>
+      <emphasis level="strong"> Quer saber os ingredientes<break time="0.3s"/> ou vamos direto pro preparo?</emphasis>
+      </prosody></speak>
       `,
     );
-    // // tslint:disable-next-line:no-string-literal
-    // conv.data['ingredientIndex'] = conv.data['ingredientIndex'] ? conv.data['ingredientIndex'] : 0;
-    // // tslint:disable-next-line:no-string-literal
-    // conv.data['ingredients'] = ['Uma xícara de chá de arroz',
-    //                             'Duas xícaras de chá de água',
-    //                             'Uma xícara de chá de leite',
-    //                             'Uma colher de sopa de manteiga',
-    //                             'Uma colher de chá de sal'];
-
-    // if (conv.data['ingredientIndex'] < conv.data['ingredients'].length - 1) {
-    //   conv.ask(
-    //     ssml`
-    //     <speak>"${conv.data['ingredients'][conv.data['ingredientIndex']]}"<break time="500ms"/></speak>
-    //     `,
-    //   );
-    //   conv.data['ingredientIndex'] = conv.data['ingredientIndex'] + 1;
-    // } else if (conv.data['ingredientIndex'] === conv.data['ingredients'].length - 1) {
-    //   conv.ask(
-    //     ssml`
-    //     <speak>"E por último ${conv.data['ingredients'][conv.data['ingredientIndex']]}"<break time="500ms"/></speak>
-    //     `,
-    //   );
-    // } else {
-    //   conv.ask(
-    //     ssml`
-    //     <speak>"Oxi, tivemos algum problema aqui!"<break time="500ms"/></speak>
-    //     `,
-    //   );
-    // }
   },
 };
