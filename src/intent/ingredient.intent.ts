@@ -1,3 +1,4 @@
+import { Suggestions } from 'actions-on-google';
 import { ssml } from '~/ssml';
 
 export const ingredientIntent: DialogFlowIntent = {
@@ -12,12 +13,14 @@ export const ingredientIntent: DialogFlowIntent = {
         <speak>${conv.data['ingredients'][conv.data['ingredientIndex']]}<break time="500ms"/></speak>
         `,
       );
+      conv.ask(new Suggestions(['próximo', 'repetir']));
     } else if (conv.data['ingredientIndex'] === conv.data['ingredients'].length - 1) {
       conv.ask(
         ssml`
         <speak>E por último ${conv.data['ingredients'][conv.data['ingredientIndex']]}<break time="500ms"/></speak>
         `,
       );
+      conv.ask(new Suggestions(['preparo']));
     } else {
       conv.ask(
         ssml`

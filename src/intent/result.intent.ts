@@ -1,4 +1,4 @@
-import { SimpleResponse } from 'actions-on-google';
+import { SimpleResponse, Suggestions } from 'actions-on-google';
 import { AllHtmlEntities } from 'html-entities';
 import * as curry from 'lodash.curry';
 import * as defaults from 'lodash.defaults';
@@ -11,8 +11,10 @@ import { ssml } from '~/ssml';
 export const resultIntent: DialogFlowIntent = {
   name: 'resultado',
   handler: async (conv) => {
+    const slug = conv.data['resultados'].find((r) => r.title === conv.input.raw).name;
+    console.log(slug);
     const results = await rp({
-      uri: 'https://panelinha-api-server-prod.herokuapp.com/v1/receita/' + conv.input.raw,
+      uri: 'https://panelinha-api-server-prod.herokuapp.com/v1/receita/' + slug,
       json: true,
     });
     const ingredients = results.data.content.recipeSteps[0].ingredients.map((step) => {
@@ -47,7 +49,13 @@ export const resultIntent: DialogFlowIntent = {
         phrase = phrase.concat("</s>");
         finalRecipeArray.push(phrase);
       });
-      conv.data['recipes'] = receitaParsed;
+      conv.data['recipes'] = receitaParsed.filter((passo) => {
+        if(isNaN(passo)) {
+          return true;
+        } else {
+          return false;
+        }
+      });
     }
     parseRecipeStep();
     conv.data['recipeString'] = results.data.content.recipeSteps[0].body;
@@ -64,5 +72,6 @@ export const resultIntent: DialogFlowIntent = {
       </prosody></speak>
       `,
     );
+    conv.ask(new Suggestions(['ingredientes', 'preparo']));
   },
 };
