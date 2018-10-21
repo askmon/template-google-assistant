@@ -36,13 +36,10 @@ export const resultIntent: DialogFlowIntent = {
     const parseRecipeStep = () => {
       const entities = new AllHtmlEntities;
       const recipe = results.data.content.recipeSteps[0].body;
-      console.log(recipe);
       let recipeClean = entities.decode(recipe);
       recipeClean = striptags(recipeClean);
       recipeClean = recipeClean.replace(/\n/g, '');
-      console.log(recipeClean);
       let receitaParsed = recipeClean.split(".");
-      console.log(receitaParsed);
       let finalRecipeArray = [];
       receitaParsed.map(item => {
         let phrase = "<s>";

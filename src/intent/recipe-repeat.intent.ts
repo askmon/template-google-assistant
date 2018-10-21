@@ -1,7 +1,7 @@
 import { ssml } from '~/ssml';
 
 export const recipeRepeatIntent: DialogFlowIntent = {
-  name: 'receita - repeat',
+  name: 'receita - proximo',
     handler: (conv) => {
     // tslint:disable-next-line:no-string-literal
     conv.data['recipeIndex'] = conv.data['recipeIndex'] ? conv.data['recipeIndex']:0;

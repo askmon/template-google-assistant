@@ -25,6 +25,7 @@
     "lodash.orderby": "^4.6.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
+    "string-similarity": "^2.0.0",
     "striptags": "^3.1.1",
     "unescape": "^1.0.1"
   },
